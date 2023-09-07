@@ -1,0 +1,44 @@
+--a. Visualizzare tutti gli impiegati oltre i 29 anni
+Select * From Impiegato Where Eta > 29;
+
+--b. Visualizzare tutti gli impiegati con un reddito di almeno 800 euro mensile
+Select * From Impiegato Where RedditoMensile >= 800.00;
+
+--c. Visualizzare tutti gli impiegati che posseggono la detrazione fiscale
+Select * From Impiegato Where DetrazioneFiscale = 1;
+
+--d. Visualizzare tutti gli impiegati che non posseggono la detrazione fiscale
+Select * From Impiegato Where DetrazioneFiscale = 0;
+
+--e. Visualizzare tutti gli impiegati cui il cognome cominci con una lettera G
+Select * From Impiegato Where Cognome Like 'G%' Order by Cognome;
+
+--f. Visualizzare il numero totale degli impiegati registrati nella base dati
+Select Count(*) As NumeroImpiegati From Impiegato;
+
+--g. Visualizzare il totale dei redditi mensili di  tutti gli impiegati
+Select Sum(RedditoMensile) As TotaleRedditiMensili From Impiegato;
+
+--h. Visualizzare la media dei redditi mensili di tutti gli impiegati
+Select Avg(RedditoMensile) As MediaRedditiMensili From Impiegato;
+
+--i. Visualizzare l'importo del reddito mensile maggiore
+Select Max(RedditoMensile) As RedditoMassimo From Impiegato;
+
+--j. Visualizzare l'importo del reddito mensile minore
+Select Min(RedditoMensile) As RedditoMinimo From Impiegato;
+
+--k. Visualizzare gli impiegati assunti dall'01/01/2007 all'01/01/2008
+SELECT Impiegato.*
+FROM Impiegato
+JOIN Impiego ON Impiegato.IDImpiego = Impiego.IDImpiego
+WHERE Impiego.DataAssunzione BETWEEN '2007-01-01' AND '2008-01-01';
+
+--l. Tramite una query parametrica che identifichi il tipo di impiego, visualizzare tutti gli impiegati
+--che corrispondono a quel tipo di impiego
+Declare @TipoImpiego NVARCHAR(50) = 'Manager';
+Select Impiegato. * From Impiegato Inner join Impiego On Impiegato.IdImpiego = Impiego.IdImpiego
+Where Impiego.TipoImpiego = @TipoImpiego;
+
+--m. Visualizzare l'età media dei lavoratori all'interno dell'azienda
+SELECT Avg(Eta) AS MediaEtàLavoratori FROM Impiegato;
